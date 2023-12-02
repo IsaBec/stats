@@ -1,0 +1,1 @@
+champi <- read.table("secondary_data.csv", header=T,sep=";", stringsAsFactors = T )
