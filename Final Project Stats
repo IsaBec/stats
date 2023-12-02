@@ -1,1 +1,78 @@
+##Get data from:
+##import 
+
 champi <- read.table("secondary_data.csv", header=T,sep=";", stringsAsFactors = T )
+
+##elimate
+Champi1 <- Champi[,-c(4,7,12,13,14,15,16,18,19)]
+
+View(Champi1)
+
+summary(Champi1)
+
+typeof(Champi1$gill.spacing)
+
+Champi1$gill.spacing <- as.character(Champi1$gill.spacing)
+typeof(Champi1$gill.spacing)
+
+Champi2 <- Champi1 [-c(which(Champi1$gill.spacing=="")),]
+
+View(Champi2)
+
+summary(Champi2)
+
+summary(Champi2$cap.color)
+
+names(Champi2) <- c("Class", "Cap Diameter (m)", "Cap Shape", "Cap Color",
+                    "Bruise or Bleed", "Gill Spacing",
+                    "Gill Color", "Stem Height (m)", "Stem Width (m)",
+                    "Ring", "Habitat", "Season")
+
+Champi2$Class <- as.character(Champi2$Class)
+typeof(Champi2$Class)
+Champi2$Class[Champi2$Class=="p"] <- "Poisonous"
+Champi2$Class[Champi2$Class=="e"] <- "Edible"
+Champi2$Class <- as.factor(Champi2$Class)
+
+typeof(Champi2$`Cap Diameter (m)`)
+
+Champi2$`Cap Shape` <- as.character(Champi2$`Cap Shape`)
+
+Champi2$`Cap Shape`[Champi2$`Cap Shape`=="b"] <- "Bell"
+Champi2$`Cap Shape`[Champi2$`Cap Shape`=="c"] <- "Conical"
+Champi2$`Cap Shape`[Champi2$`Cap Shape`=="x"] <- "Convex"
+Champi2$`Cap Shape`[Champi2$`Cap Shape`=="f"] <- "Flat"
+Champi2$`Cap Shape`[Champi2$`Cap Shape`=="s"] <- "Sunken"
+Champi2$`Cap Shape`[Champi2$`Cap Shape`=="p"] <- "Spherical"
+Champi2$`Cap Shape`[Champi2$`Cap Shape`=="o"] <- "Others"
+
+Champi2$`Cap Shape` <- as.factor(Champi2$`Cap Shape`)
+
+summary(Champi2$`Cap Shape`)
+
+summary(Champi2$Class)
+
+Champi2$`Cap Color` <- as.character(Champi2$`Cap Color`)
+
+Champi2$`Cap Color`[Champi2$`Cap Color`=="n"] <- "Brown"
+Champi2$`Cap Color`[Champi2$`Cap Color`=="b"] <- "Buff"
+Champi2$`Cap Color`[Champi2$`Cap Color`=="g"] <- "Gray"
+Champi2$`Cap Color`[Champi2$`Cap Color`=="r"] <- "Green"
+Champi2$`Cap Color`[Champi2$`Cap Color`=="p"] <- "Pink"
+Champi2$`Cap Color`[Champi2$`Cap Color`=="u"] <- "Purple"
+Champi2$`Cap Color`[Champi2$`Cap Color`=="e"] <- "Red"
+Champi2$`Cap Color`[Champi2$`Cap Color`=="w"] <- "White"
+Champi2$`Cap Color`[Champi2$`Cap Color`=="y"] <- "Yellow"
+Champi2$`Cap Color`[Champi2$`Cap Color`=="l"] <- "Blue"
+Champi2$`Cap Color`[Champi2$`Cap Color`=="o"] <- "Orange"
+Champi2$`Cap Color`[Champi2$`Cap Color`=="k"] <- "Black"
+
+Champi2$`Cap Color` <- as.factor(Champi2$`Cap Color`)
+
+summary(Champi2$`Cap Color`)
+
+Champi2$`Bruise or Bleed` <- as.character(Champi2$`Bruise or Bleed`)
+Champi2$`Bruise or Bleed`[Champi2$`Bruise or Bleed`=="t"] <- TRUE
+Champi2$`Bruise or Bleed`[Champi2$`Bruise or Bleed`=="f"] <- FALSE
+Champi2$`Bruise or Bleed` <- as.logical(Champi2$`Bruise or Bleed`)
+summary(Champi2$`Bruise or Bleed`)
