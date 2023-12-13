@@ -1,37 +1,48 @@
-##Get data from:
-##import 
+##Get data from: https://www.kaggle.com/datasets/joebeachcapital/secondary-mushroom-dataset/data
 
-
+##import secondary data 
 champi <- read.table("secondary_data.csv", header=T,sep=";", stringsAsFactors = T )
 
+##Data Cleaning
+
+##look at format
 typeof(champi)
 summary(champi)
 
+#eliminate columns that will not be used
 champi[ ,-c(4,7,12,13,14,15,16,18,19)]
 
+#eliminate NA from column gill spacing
 champi1$gill.spacing<-as.character(champi1$gill.spacing)
 champi2<- champi1[-c(which(champi1$gill.spacing=="")), ]
 which(is.na(champi2))
 
+#view new table and make corrections
+View(champi2)
+
+#change column names
 colnames(champi2)<- c("Class", "Cap Diameter (m)", "Cap Shape", "Cap Color", "Bruise or Bleed", "Gill Spacing", "Gill Color","Stem Height (m)", "Stem Width (m)", "Ring", "Habitat", "Season")
 champi2$Class<- as.character(champi2$Class)
 typeof(champi2$Class)
 
+#rename columns to actual names
 champi2$Class[champi2$Class =="p"] <- "Poisonous"
 champi2$Class[champi2$Class =="e"] <- "Edible"
 
+#rename cap shape column data to actual names
 champi2$`Cap Shape`<- as.character(champi2$`Cap Shape`)
 champi2$`Cap Shape`[champi2$`Cap Shape` =="b"] <- "Bell"
 champi2$`Cap Shape`[champi2$`Cap Shape` =="f"] <- "Flat"
 champi2$`Cap Shape`[champi2$`Cap Shape` =="x"] <- "Convex"
 champi2$`Cap Shape`[champi2$`Cap Shape` =="s"] <- "Sunken"
 champi2$`Cap Shape`[champi2$`Cap Shape` =="c"] <- "Conical"
+champi2$`Cap Shape`[champi2$`Cap Shape` =="p"] <- "Spherical"
 champi2$`Cap Shape`[champi2$`Cap Shape` =="o"] <- "Others"
 champi2$`Cap Shape`<- as.factor(champi2$`Cap Shape`)
 
 
+#name actual colors
 champi2$`Cap Color` <- as.character(champi2$`Cap Color`)
-
 champi2$`Cap Color`[champi2$`Cap Color`=="n"] <- "Brown"
 champi2$`Cap Color`[champi2$`Cap Color`=="b"] <- "Buff"
 champi2$`Cap Color`[champi2$`Cap Color`=="g"] <- "Gray"
@@ -45,7 +56,94 @@ champi2$`Cap Color`[champi2$`Cap Color`=="l"] <- "Blue"
 champi2$`Cap Color`[champi2$`Cap Color`=="o"] <- "Orange"
 champi2$`Cap Color`[champi2$`Cap Color`=="k"] <- "Black"
 
-Champi2$`Cap Color` <- as.factor(Champi2$`Cap Color`)
+champi2$`Cap Color` <- as.factor(champi2$`Cap Color`)
+
+#change t/f to TRUE/FALSE
+champi2$`Bruise or Bleed` <- as.character(champi2$`Bruise or Bleed`)
+champi2$`Bruise or Bleed`[champi2$`Bruise or Bleed`=="t"] <- TRUE
+champi2$`Bruise or Bleed`[champi2$`Bruise or Bleed`=="f"] <- FALSE
+champi2$`Bruise or Bleed` <- as.logical(champi2$`Bruise or Bleed`)
+summary(champi2$`Bruise or Bleed`)
+
+#change to actual names
+champi2$`Gill Spacing` <- as.character(champi2$`Gill Spacing`)
+champi2$`Gill Spacing`[champi2$`Gill Spacing`=="c"] <- "Close"
+champi2$`Gill Spacing`[champi2$`Gill Spacing`=="d"] <- "Distant"
+champi2$`Gill Spacing`[champi2$`Gill Spacing`=="f"] <- "None"
+champi2$`Gill Spacing` <- as.factor(champi2$`Gill Spacing`)
+summary(champi2$`Gill Spacing`)
+
+##change to actual names
+champi2$`Gill Color` <- as.character(champi2$`Gill Color`)
+champi2$`Gill Color`[champi2$`Gill Color`=="n"] <- "Brown"
+champi2$`Gill Color`[champi2$`Gill Color`=="b"] <- "Buff"
+champi2$`Gill Color`[champi2$`Gill Color`=="g"] <- "Gray"
+champi2$`Gill Color`[champi2$`Gill Color`=="r"] <- "Green"
+champi2$`Gill Color`[champi2$`Gill Color`=="p"] <- "Pink"
+champi2$`Gill Color`[champi2$`Gill Color`=="u"] <- "Purple"
+champi2$`Gill Color`[champi2$`Gill Color`=="e"] <- "Red"
+champi2$`Gill Color`[champi2$`Gill Color`=="w"] <- "White"
+champi2$`Gill Color`[champi2$`Gill Color`=="y"] <- "Yellow"
+champi2$`Gill Color`[champi2$`Gill Color`=="l"] <- "Blue"
+champi2$`Gill Color`[champi2$`Gill Color`=="o"] <- "Orange"
+champi2$`Gill Color`[champi2$`Gill Color`=="k"] <- "Black"
+champi2$`Gill Color`[champi2$`Gill Color`=="f"] <- "Other"
+champi2$`Gill Color` <- as.factor(champi2$`Gill Color`)
+summary(champi2$`Gill Color`)
+
+typeof(champi2$`Stem Height (m)`)
+typeof(champi2$`Stem Width (m)`)
+
+##make characters logical
+champi2$`Ring` <- as.character(champi2$`Ring`)
+champi2$`Ring`[champi2$`Ring`=="t"] <- TRUE
+champi2$`Ring`[champi2$`Ring`=="f"] <- FALSE
+champi2$`Ring` <- as.logical(champi2$`Ring`)
+summary(champi2$`Ring`)
+
+#change to actual name
+champi2$`Habitat` <- as.character(champi2$`Habitat`)
+champi2$`Habitat`[champi2$`Habitat`=="g"] <- "Grasses"
+champi2$`Habitat`[champi2$`Habitat`=="l"] <- "Leaves"
+champi2$`Habitat`[champi2$`Habitat`=="m"] <- "Meadows"
+champi2$`Habitat`[champi2$`Habitat`=="p"] <- "Paths"
+champi2$`Habitat`[champi2$`Habitat`=="h"] <- "Heaths"
+champi2$`Habitat`[champi2$`Habitat`=="u"] <- "Urban"
+champi2$`Habitat`[champi2$`Habitat`=="w"] <- "Waste"
+champi2$`Habitat`[champi2$`Habitat`=="d"] <- "Woods"
+champi2$`Habitat` <- as.factor(champi2$`Habitat`)
+summary(champi2$Habitat)
 
 
-##elimate
+champi2$`Season` <- as.character(champi2$`Season`)
+champi2$`Season`[champi2$`Season`=="s"] <- "Spring"
+champi2$`Season`[champi2$`Season`=="u"] <- "Summer"
+champi2$`Season`[champi2$`Season`=="a"] <- "Autumn"
+champi2$`Season`[champi2$`Season`=="w"] <- "Winter"
+champi2$`Season` <- as.factor(champi2$`Season`)
+summary(champi2$Season)
+
+##create a new column with 3 height classes
+##starts at -1 to include the ones that are 0
+champi2$'Height Class' <- cut(champi2$`Stem Height (m)`, 
+breaks = c(-1, 4.48,6.89,27.85), labels = c("Short", "Medium", "Tall"))
+
+write.csv(champi2, "Champi_Clean.csv", row.name = TRUE)
+
+
+#######################
+### Descriptive Analysis
+
+barplot(table(champi2$`Cap Color`[champi2$Class=="Edible"]), col=brewer.pal(n=12, name="Paired"))
+
+pie(table(champi2$Class), col= c("red", "blue"))
+
+barplot(table(champi2$'Cap Shape'[champi2$Class=="Poisonous"]), col=brewer.pal(n=7, name="Spectral"))
+
+plot(champi2$`Cap Diameter (m)`, champi2$`Stem Width (m)`, xlab = "diameter", ylab="width", main="Mushrooms", col="blue")
+
+plot(champi2$`Cap Diameter (m)`, champi2$`Stem Height (m)`, xlab = "diameter", ylab="height", main="Mushrooms", col="green")
+
+cual de los sunken edibble son mas grande que 5?
+
+plot(table(champi2$'Cap Diameter (m)'[champi2$Class=="Poisonous"]))  ##no se que esta graphing ni 
