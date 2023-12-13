@@ -144,6 +144,15 @@ plot(champi2$`Cap Diameter (m)`, champi2$`Stem Width (m)`, xlab = "diameter", yl
 
 plot(champi2$`Cap Diameter (m)`, champi2$`Stem Height (m)`, xlab = "diameter", ylab="height", main="Mushrooms", col="green")
 
-cual de los sunken edibble son mas grande que 5?
+plot(table(champi2$'Cap Diameter (m)'[champi2$Class=="Poisonous"]))  ##no se que esta graphing ni como poner nombres a los axis
 
-plot(table(champi2$'Cap Diameter (m)'[champi2$Class=="Poisonous"]))  ##no se que esta graphing ni 
+boxplot(table(champi2$'Cap Diameter (m)'[champi2$Class=="Poisonous"]))
+
+cual de los sunken edible son mas grande que 5?
+freq of flat cap shape?
+
+###covariance
+mean(champi2$`Cap Diameter (m)`*champi2$`Stem Height (m)`)-mean(champi2$`Cap Diameter (m)`)*mean(champi2$`Stem Height (m)`)
+cov(champi2$`Cap Diameter (m)`,champi2$`Stem Height (m)`)
+#correlation
+cor(champi2$`Cap Diameter (m)`,champi2$`Stem Height (m)`)
